@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/27 17:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/09/30 21:15:00 by kmottus           #+#    #+#             */
+/*   Updated: 2021/09/30 21:15:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+void	*ft_memcpy(void *dest, const void *src, size_t len)
 {
-	if (c < -1 && c > -129)
-		c = (c + 256) % 256;
-	if (c < 123 && c > 96)
-		c -= 32;
-	return (c);
+	char		*ptr;
+	const char	*s;
+
+	if (len == 0 || dest == src)
+		return (dest);
+	ptr = dest;
+	s = src;
+	while (len--)
+		*ptr++ = *s++;
+	return (dest);
 }

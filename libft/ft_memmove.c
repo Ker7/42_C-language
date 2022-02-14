@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/27 17:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/10/25 00:58:00 by kmottus           #+#    #+#             */
+/*   Updated: 2021/12/08 14:47:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+/* memcpy is called only after the test for memory overlapping
+ */
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	if (c < -1 && c > -129)
-		c = (c + 256) % 256;
-	if (c < 123 && c > 96)
-		c -= 32;
-	return (c);
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	if ((unsigned long)(dest - src) >= (unsigned long) n)
+		return (ft_memcpy(dest, src, n));
+	while (n-- > 0)
+		*((char *) dest + n) = *((char *) src + n);
+	return (dest);
 }

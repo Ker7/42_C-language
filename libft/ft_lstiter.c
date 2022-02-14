@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_lstiter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/27 17:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/11/20 23:00:00 by kmottus           #+#    #+#             */
+/*   Updated: 2021/11/20 23:00:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (c < -1 && c > -129)
-		c = (c + 256) % 256;
-	if (c < 123 && c > 96)
-		c -= 32;
-	return (c);
+	t_list	*tmp;
+
+	if (lst == NULL || f == NULL)
+		return ;
+	while (lst)
+	{
+		tmp = lst->next;
+		f(lst->content);
+		lst = tmp;
+	}
 }

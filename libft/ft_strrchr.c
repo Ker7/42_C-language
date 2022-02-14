@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/27 17:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/10/24 23:25:00 by kmottus           #+#    #+#             */
+/*   Updated: 2021/10/24 23:25:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	if (c < -1 && c > -129)
-		c = (c + 256) % 256;
-	if (c < 123 && c > 96)
-		c -= 32;
-	return (c);
+	size_t	i;
+
+	i = ft_strlen(s);
+	while (i > 0 && (s[i] != c % 256))
+		i--;
+	if (s[i] == c % 256)
+		return ((char *)s + i);
+	return ((char *)0);
 }

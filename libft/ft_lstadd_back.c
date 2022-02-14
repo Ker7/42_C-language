@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/27 17:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/11/22 12:30:00 by kmottus           #+#    #+#             */
+/*   Updated: 2021/11/22 12:30:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+/* A new first element will be added to the end.
+ * The end will be needed to be found.
+ */
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if (c < -1 && c > -129)
-		c = (c + 256) % 256;
-	if (c < 123 && c > 96)
-		c -= 32;
-	return (c);
+	t_list	*ptr;
+
+	new->next = NULL;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	ptr = ft_lstlast(*lst);
+	ptr->next = new;
 }

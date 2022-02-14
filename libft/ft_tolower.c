@@ -12,9 +12,17 @@
 
 #include "libft.h"
 
+/* Making an input character to be of type unsigned
+ * From UNIT test I learned the values for negative
+ * range, especially the '- one' values.
+ * +256 is added because else it did not mod the -*
+ */
+
 int	ft_tolower(int c)
 {
-	if (c < 91 && c > 64)
-		return (c + 32);
+	if (c < -1 && c > -129)
+		c = (c + 256) % 256;
+	if (c <= 90 && c >= 65)
+		c += 32;
 	return (c);
 }

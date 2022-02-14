@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/27 17:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/11/20 09:54:00 by kmottus           #+#    #+#             */
+/*   Updated: 2021/11/20 09:54:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	if (c < -1 && c > -129)
-		c = (c + 256) % 256;
-	if (c < 123 && c > 96)
-		c -= 32;
-	return (c);
+	unsigned int	i;
+	char			*cpy;
+	size_t			len;
+
+	if (s == NULL || f == NULL)
+		return (NULL);
+	i = 0;
+	len = ft_strlen(s);
+	cpy = ft_calloc(len + 1, sizeof(char));
+	if (cpy == NULL)
+		return (NULL);
+	ft_strlcpy(cpy, s, len);
+	while (i < len)
+	{
+		cpy[i] = f(i, s[i]);
+		i++;
+	}
+	return (cpy);
 }

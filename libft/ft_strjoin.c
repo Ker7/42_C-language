@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/27 17:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/10/28 13:00:00 by kmottus           #+#    #+#             */
+/*   Updated: 2021/10/28 13:00:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	if (c < -1 && c > -129)
-		c = (c + 256) % 256;
-	if (c < 123 && c > 96)
-		c -= 32;
-	return (c);
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*copy;
+
+	s1_len = ft_strlen(s1) + 1;
+	s2_len = ft_strlen(s2) + 1;
+	copy = ft_calloc(s1_len + s2_len - 1, sizeof(char));
+	if (copy == NULL)
+		return (NULL);
+	ft_strlcpy(copy, s1, s1_len);
+	ft_strlcat(copy, (char *)s2, s1_len + s2_len - 1);
+	return (copy);
 }
