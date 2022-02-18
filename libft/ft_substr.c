@@ -6,7 +6,7 @@
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/11/02 14:00:00 by kmottus          ###   ########.fr       */
+/*   Updated: 2022/02/18 13:30:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (start > ft_strlen(s))
 		return (ft_strdup(""));
-	if (len > ft_strlen(s) - start)
-		copy = ft_calloc(ft_strlen(s) - start + 1, sizeof(char));
-	else
-		copy = ft_calloc(len + 1, sizeof(char));
-	if (*s == '\0' || copy == NULL)
+	copy = ft_calloc((len + 1), sizeof(char));
+	if (copy == NULL || *s == '\0')
 		return (NULL);
 	while (i < len && s[start + i])
 	{

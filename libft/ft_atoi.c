@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int	ft_atoi_check_edgecases(int i, unsigned long res, int sign)
+static int	ft_atoi_check_edgecases(int id, unsigned long res, int sign)
 {
-	if (i > 24)
+	if (id > 24)
 	{
 		if (sign == 1)
 			return (-1);
@@ -27,10 +27,12 @@ static int	ft_atoi_check_edgecases(int i, unsigned long res, int sign)
 int	ft_atoi(const char *nptr)
 {
 	int				i;
+	int				idigits;
 	unsigned long	res;
 	int				sign;
 
 	i = 0;
+	idigits = 0;
 	res = 0;
 	sign = 1;
 	while ((nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13)) && nptr[i])
@@ -42,10 +44,10 @@ int	ft_atoi(const char *nptr)
 		sign = -1;
 		i++;
 	}
-	while (ft_isdigit(nptr[i]) && nptr[i])
+	while (ft_isdigit(nptr[idigits + i]) && nptr[idigits + i])
 	{
-		res = res * 10 + nptr[i] - '0';
-		i++;
+		res = res * 10 + nptr[idigits + i] - '0';
+		idigits++;
 	}
-	return (ft_atoi_check_edgecases(i, res, sign));
+	return (ft_atoi_check_edgecases(idigits, res, sign));
 }
