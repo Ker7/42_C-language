@@ -10,22 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "libftprintf.a"
-#include <unistd.h>
-#include <stdarg.h>
-
+#include "ft_printf.h"
 #include <stdio.h>
 
-size_t	ft_strlen(const char *str);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putr_fd(char c, int fd);
+void ft_printf_handle_modi(const char *s, size_t i)
+{
+	char	*mlist;
+
+	mlist = "cspdiupxX%";//@ POOLELII!.w
+	printf("\n\n@TodoStr: %s.c: %c.Modifiers: %s", s, s[i], mlist);
+
+}
 
 /* Return 1 if currently dealing with modifier */
 int	ft_printf_is_modifier(const char *s, size_t i)
 {
-	while(s[i] != '\0')
+	if(s[i] != '\0')
 	{
-		if (s[i] == '%')
+		if (s[i] == '%' && s[i] != '\\')
 		{
 			if (i == 0)
 			{
@@ -84,18 +86,25 @@ int	ft_printf(const char *s, ...)
 	while(s[string_i] != '\0')
 	{
 //		printf(" -- ");	// Ending LINE_BREAK
-//		printf("str_i:%lu: ",string_i);		//string counter
-//		printf("%c - ",s[string_i]);	//character real
-//		printf("%d",s[string_i]);		//character ASCII
+		printf("i:%lu;",string_i);		//string counter
+		if ((int)s[string_i] == 10)
+			printf("c:\\N;");	//character real
+		else 
+			printf("c:%c;",s[string_i]);	//character real
+		printf("d:%d;",s[string_i]);		//character ASCII
 
 //		if (s[string_i] == '%')
 //			printf("- this might be a modifier! Watch out man!");
 //		if (s[string_i] == ' ')
 //			printf("- this is a space. Space out man!");
-		if (ft_printf_is_modifier(s, string_i))
-			printf("Y");
-		else
-			printf("N");
+		if (ft_printf_is_modifier(s, string_i) == 1)
+			ft_printf_handle_modi(s, string_i);
+//		{
+//			printf("Y\n");
+//			string_i++;
+//		}
+//		else
+//			printf("N\n");
 			
 		string_i++;
 	}

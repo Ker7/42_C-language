@@ -1,0 +1,11 @@
+--2022-03-14 00:08:26--  https://raw.githubusercontent.com/Ker7/42l/main/visuascii/udu_80-25.bmp?token=GHSAT0AAAAAABRSKSANRURGADBQ6SUVAKTKYRONNYA
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.111.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6054 (5.9K) [image/bmp]
+Saving to: ‘udu_80-25.bmp?token=GHSAT0AAAAAABRSKSANRURGADBQ6SUVAKTKYRONNYA’
+
+     0K .....                                                 100% 26.9M=0s
+
+2022-03-14 00:08:26 (26.9 MB/s) - ‘udu_80-25.bmp?token=GHSAT0AAAAAABRSKSANRURGADBQ6SUVAKTKYRONNYA’ saved [6054/6054]
+

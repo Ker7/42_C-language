@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/29 12:00:00 by kmottus           #+#    #+#             */
-/*   Updated: 2021/05/29 12:00:00 by kmottus          ###   ########.fr       */
+/*   Created: 2021/05/14 13:29:33 by kmottus           #+#    #+#             */
+/*   Updated: 2021/05/27 13:37:60 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PRINTF_H
+# define PRINTF_H
+# include "./libft/libft.h"		//Without it: implicit decl of ft_strlen in ft*/
+# include <unistd.h>			//_ptrinf.c ?
+# include <stdlib.h>
+# include <stdarg.h>
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
-	return ;
-}
+void	ft_printf_handle_modi(const char *s, size_t i);
+int		ft_printf_is_modifier(const char *s, size_t i);
+int 	ft_printf_count_args(const char *s);
+
+
+#endif

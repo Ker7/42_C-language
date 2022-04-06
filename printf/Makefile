@@ -11,29 +11,27 @@
 # ***************************************************************************** #
  
 
-CC		= gcc
 NAME	= a.out
-CFLAGS	= -Wall -Wextra -Werror -c
-SRCS	= ft_printf.c ft_strlen.c ft_putchar_fd.c ft_putstr_fd.c main.c
-
+CC		= gcc
+HEADER	= ./ft_printf.h
+CFLAGS	= -Wall -Wextra -Werror
+SRCS	= ft_printf.c \
+		main.c
+RM		= rm -fr
+LIBFT	= ./libft/libft.a
 OBJS	= ${SRCS:.c=.o}
 
 all:	$(NAME)
-
 $(NAME): $(OBJS)
-	gcc ${OBJS} -o a.out
-#	ar rcs ${NAME} ${OBJS}
-
-
-so: fclean all
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS) $(BNSS)
-	gcc -nostartfiles -shared -o libft.so $(OBJS) $(BBJS)
+	@${MAKE} -C ./libft
+	${CC} ${OBJS} ${LIBFT} ${CFLAGS} -o ${NAME}
 
 clean:
-	rm -f $(OBJS) $(BBJS)
+	@${MAKE} -C./libft fclean
+	${RM} $(OBJS) $(BBJS)
 
 fclean: clean
-	rm -f ${NAME}
+	${RM} ${NAME}
 
 re:	fclean all
 

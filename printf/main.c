@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "./libft/libft.h"
 
 int	ft_printf(const char *, ...);
 
@@ -35,7 +36,8 @@ int	main(void)
 	hx_u = 29;
 	hx_i = 31;
 	//instring = "%c\n%s\n%p\n%d\n%i\n%u\n%x\n%X\n%%\n";
-	instring = "%c\n%X\n%%\n";
+	//instring = "%c\n%X\n%%\n";	//9 characters, '\' is not one
+	instring = "abc:%s";
 
 	printf("Hello from ft_printf tester\n\n");
 
@@ -47,6 +49,10 @@ int	main(void)
 	//ft_printf("%%Hello: %s.", 1, 4, 3, 2);
 	//ft_printf(instring, 1, 4, 3, 2);
 	ft_printf(instring, q, w, e, r, t, y, hx_u, hx_i);
+
+
+//#include "./ft_printf.h"
+//#include "./libft/libft.h"
 
 	printf("\n");
 	return(0);
