@@ -17,9 +17,10 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+size_t	ft_putstr_count(char *);
 void	ft_printf_handle_modi(const char *s, size_t i);
-int		ft_printf_is_modifier(const char *s, size_t i);
 int 	ft_printf_count_args(const char *s);
+int		ft_printf_is_modifier(const char *s, size_t i);
 
 
 #endif

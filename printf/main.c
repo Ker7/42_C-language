@@ -36,8 +36,9 @@ int	main(void)
 	hx_u = 29;
 	hx_i = 31;
 	//instring = "%c\n%s\n%p\n%d\n%i\n%u\n%x\n%X\n%%\n";
-	//instring = "%c\n%X\n%%\n";	//9 characters, '\' is not one
-	instring = "abc:%s";
+	//instring = "%c\n%X\n%%\n";		//9 characters, '\' is not one, n is, 3 mods
+	//instring = "abc:%s\n.%v";		//10 chars, 1 modif
+	instring = "a:%sb:%sc:%sd:%s";	// 16 -4 =
 
 	printf("Hello from ft_printf tester\n\n");
 
@@ -47,7 +48,8 @@ int	main(void)
 	//printf(instring, q, w, e, r, t, y, hx_u, hx_i, r);
 
 	//ft_printf("%%Hello: %s.", 1, 4, 3, 2);
-	//ft_printf(instring, 1, 4, 3, 2);
+	ft_printf(instring, "1", "4", "3", "2");
+printf("-in-between-");	
 	ft_printf(instring, q, w, e, r, t, y, hx_u, hx_i);
 
 
