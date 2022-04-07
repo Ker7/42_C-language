@@ -38,18 +38,21 @@ int	main(void)
 	//instring = "%c\n%s\n%p\n%d\n%i\n%u\n%x\n%X\n%%\n";
 	//instring = "%c\n%X\n%%\n";		//9 characters, '\' is not one, n is, 3 mods
 	//instring = "abc:%s\n.%v";		//10 chars, 1 modif
-	instring = "a:%sb:%sc:%sd:%s";	// 16 -4 =
+	//instring = "a:%sb:%sc:%sd:%s";	// 16 -4 =
+	instring = "a:%cb:%cc:%cd:%s \n%%";	// ft 19 og 20
+	//instring = "a:%cb:%cc:%cd:%s \n%";	// ft 47 og -1 UnidentifiedBehavior? 
+	//instring = "a:%cb:%cc:%cd:%s \n";	// ft 19 og 19
+	//instring = "%%%%%%%%";	// ft  og 
 
 	printf("Hello from ft_printf tester\n\n");
 
-	////OG matching call:	
-	//printf(instring, q, w, e, r, t, y, hx_u, hx_i);
-	////more args is not an arg, UBehaviour?
-	//printf(instring, q, w, e, r, t, y, hx_u, hx_i, r);
+	ft_printf(instring, '1', '4', '3', "degree");
 
-	//ft_printf("%%Hello: %s.", 1, 4, 3, 2);
-	ft_printf(instring, "1", "4", "3", "2");
-printf("-in-between-");	
+printf("--===--\n");	
+
+printf("-in-og: %d---", printf(instring, '1', '2', '5', "degree"));	
+
+return(0);
 	ft_printf(instring, q, w, e, r, t, y, hx_u, hx_i);
 
 

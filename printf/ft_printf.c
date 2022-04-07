@@ -11,9 +11,14 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "ft_prf_conv_cspdi.c"
+#include "ft_prf_conv_uxxc.c"
+
 #include <stdio.h>
 
-/* Put the variable string into output and return the lenght */
+
+/* arg0 string gets written out
+ * @return the lenght outputted */
 size_t	ft_putstr_count(char *s)
 {
 	size_t	i;
@@ -28,6 +33,7 @@ size_t	ft_putstr_count(char *s)
 	return (i);
 }
 
+/* wip func to deal with modifiers @todo abandon this func */
 void ft_printf_handle_modi(const char *s, size_t i)
 {
 	char	*mlist;
@@ -47,7 +53,10 @@ int	ft_printf_count_args(const char *s)
 	while(s[i] != '\0')
 	{
 		if (ft_printf_is_modifier(s, i) != 0)
+		{
 			arg_c++;
+			i++;
+		}
 		i++;
 	}
 	return (arg_c);
@@ -56,73 +65,64 @@ int	ft_printf_count_args(const char *s)
 /* Return 1 if currently dealing with modifier */
 int	ft_printf_is_modifier(const char *s, size_t i)
 {
-	if(s[i] != '\0')
+	if (s[i] == '%' && ft_strchr("cspdiuxX%", s[i + 1]) != NULL)
 	{
-		if (s[i] == '%' && s[i] != '\\')
-		{
-			if (ft_strchr("cspdiuxX%", s[i + 1]) != NULL)
-				return (1);
-		}
-		i++;
+		return (1);
 	}
 	return (0);
 }
 
+/* Give the modifier char, list of arguments and route to correct disp fn     */
+/* @return value is the lenght of argument that was being printed			  */
+size_t	ft_printf_handle_argument(char str, va_list list_a)
+{
+	if ('c' == str)
+		return (conv_c(va_arg(list_a, int)));
+	if ('s' == str)
+		return (conv_s(va_arg(list_a, char*)));
+	if ('p' == str)
+		return (conv_p(va_arg(list_a, void*)));
+	if ('d' == str || 'i' == str)
+		return (conv_di(va_arg(list_a, int)));
+	if ('u' == str)
+		return (conv_u(va_arg(list_a, unsigned int)));
+	if ('x' == str)
+		return (conv_x(va_arg(list_a, int)));
+	if ('X' == str)
+		return (conv_xc(va_arg(list_a, int)));
+	if ('%' == str)
+	{
+		return (conv_pp());
+		//printf("<>");
+		//return (0);
+	}
+	return (0);							//@@todo error handling?
+}
+
 int	ft_printf(const char *s, ...)
 {
-	size_t	string_i;		// Counter for the input string
-//	size_t	arg_i;			// Counter for the function arguments
-	size_t	slen;			// SUM Count of input string character
-	size_t	vlen;			// SUM Count of function arguments
+	size_t	string_i;		// Counter for the input string iteration
+	size_t	arg_i;			// Counter for the function arguments lenght
 	va_list	list_a;			// Pointer to the argument list
 
 	va_start(list_a, s);
-	slen = ft_strlen(s);	// Lenght of input string PRE parse
 	string_i = 0;			// Init counter to 0 eg. the start of
-	vlen = ft_printf_count_args(s);
-//	arg_i = 0;
-//	ft_putstr_count(va_arg(list_a, char*));
-			
-	printf("\n\nStarting to parse input characters of %ld length...: \n", slen);
-	printf("The input characters seem to have %ld count of arguments \n", vlen);
+	arg_i = 0;
 	while(s[string_i] != '\0')
 	{
-//		printf(" -- ");	// Ending LINE_BREA
-/*
-		printf("i:%lu;",string_i);		//string counter
-		if ((int)s[string_i] == 10)
-			printf("c:\\N;");	//character real
-		else 
-			printf("c:%c;",s[string_i]);	//character real
-		printf("d:%d;",s[string_i]);		//character ASCII
-
-		*/
-//			printf(":;I: %ld - %c",string_i, s[string_i]);	//character real
-
-//		if (s[string_i] == '%')
-//			printf("- this might be a modifier! Watch out man!");
-//		if (s[string_i] == ' ')
-//			printf("- this is a space. Space out man!");
-		if (ft_printf_is_modifier(s, string_i) == 1)
-			ft_putstr_count(va_arg(list_a, char*));
-//			printf("is_modif:%c;", s[string_i + 1]);
-//			ft_putstr_count(va_arg(list_a, char*));
-//			ft_printf_handle_modi(s, string_i);
-//		{
-//			printf("Y\n");
-//			string_i++;
-//		}
-//		else
-//			printf("N\n");
-			
-		string_i++;
-	}
-	string_i = 0;	//Reset and start output
-	while(s[string_i] != '\0')
-	{
-
+		if (ft_printf_is_modifier(s, string_i) != 0)
+		{
+			arg_i += ft_printf_handle_argument(s[string_i+1], list_a);
+			string_i++;
+		}
+		else
+			write(1, &s[string_i], 1);	
 		string_i++;
 	}
 	va_end(list_a);
-	return(0);
+//printf("\narg counter: %d\n",ft_printf_count_args(s));
+//printf("\narg_i counter: %ld\n",arg_i);
+//printf("\nstring counter: %ld\n",string_i);
+printf("\nOutput char counter: %ld\n",string_i-ft_printf_count_args(s)*2+arg_i);
+	return (string_i-ft_printf_count_args(s)*2+arg_i);
 }
