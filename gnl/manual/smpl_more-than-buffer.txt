@@ -1,0 +1,6 @@
+Greetings!
+
+This is a text file.
+It is mean't to be used as a sample for testing my 42 GNL project. Happy testing!
+
+Kert...
