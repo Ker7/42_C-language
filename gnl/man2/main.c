@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 	char	*path;
 	FILE	*file;
 	char	*curline;
-	int		_last_line_flag;	// Take some extra scans 
+	int		_last_line_flag;
 
 	_last_line_flag = 2;
 	i = 0;
@@ -24,24 +24,28 @@ int main(int argc, char **argv)
 		perror(path);
 		return (EXIT_FAILURE);		
 	}
-//	printf("\nBUFFER_SIZE=%d\n", BUFFER_SIZE); // This is different variable //
-	printf("\nThe file descriptor of %s is: %d.\n", path, fileno(file));
 
-	curline = malloc(1000);
+//	printf("\nBUFFER_SIZE=%d\n", BUFFER_SIZE);
+	printf("\nThe file descriptor of %s is: %d.\n", path, fileno(file));
+//	printf("\nget_next_line returns:\nL1: <%s>L2: <%s>\n", line1, line2);
+	
 	curline = get_next_line(fileno(file));
+//	printf("c>%s", curline);
+
 	while (_last_line_flag > 0)
 	{
 		printf("%d'th run: \"%s\"", i, curline);
-		free(curline);
-		curline = malloc(1000);
 		curline = get_next_line(fileno(file));
 		i++;
 		if (curline == NULL)
-		{
 			_last_line_flag--;
-		}
 	}	
-	free(curline);
+
+/*
+	printf("\n1st run: %s", curline);
+	curline = get_next_line(fileno(file));
+	printf("\n2nd run: %s", curline);
+*/
 
 	if (fclose(file))
 	{
@@ -49,5 +53,4 @@ int main(int argc, char **argv)
 		perror(path);
 	}
 
-	return (0);
 }

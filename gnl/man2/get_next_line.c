@@ -29,11 +29,10 @@ static int	ft_linelen(char *s)
 	while (s[i])
 	{
 //printf(">%c", (char)s[i]);
-		//if (s[i] == '\n' || s[i + 1] == '\0')
-		if (s[i] == '\n')// || s[i + 1] == '\0')
+		if (s[i] == '\n')
 		{
-//			if (s[i + 1] == '\0')
-//				return (-1);
+			if (s[i + 1] == '\0')
+				return (-1);
 			return (i);
 		}
 		i++;
@@ -59,9 +58,8 @@ char	*ft_get_chars(int fd, char *flow)
 	{
 		i = read(fd, tmp, BUFFER_SIZE);
 //printf(">%s<", tmp);
-		if (i < 1 && !tmp[0] && ft_strlen(flow) == 0)	//Removed ! from tmp[0] here
+		if (i < 1 && !tmp[0])
 		{
-//printf("#(((((");	// <-- this is where we read nothing but have sth in the box
 			free(tmp);
 			free(flow);
 			return (NULL);
@@ -69,7 +67,6 @@ char	*ft_get_chars(int fd, char *flow)
 		tmp[i] = 0; // Because I calloc this is not needed?
 		if (i < 1 && tmp[0])
 		{
-//printf("# ¤¤ #");	// <-- this is where we read nothing but have sth in the box
 			free(tmp);
 			return (flow);
 		}
@@ -93,7 +90,6 @@ char	*ft_trim_line(char *flow)
 		line = (ft_substr(flow, 0, ft_strlen(flow)));
 	else
 		line = (ft_substr(flow, 0, ft_linelen(flow) + 1));
-//printf("¤¤line:%s;", line);
 	return (line);
 }
 
@@ -106,14 +102,12 @@ char	*ft_push(char *flow)
 
 	if (ft_linelen(flow) == -1)
 	{
-//printf("pushNoLineEnd");
 		free(flow);
 		flow = NULL;
 		return (NULL);
 	}
-//printf("\nflw1;%s;", flow);
 	next_line = ft_strdup(&flow[ft_linelen(flow) + 1]);
-//printf("¤nl¤:%s¤", next_line);
+//printf("¤flow:%s¤", flow);
 	free(flow);
 	return (next_line);
 }
@@ -147,29 +141,13 @@ char	*get_next_line(int fd)
 			return (NULL);
 		flow[0] = 0; //We calloced and therefor dont need it yes?
 	}
-	else
-	{
-//printf("~flow~");
-	}
-//printf("\nflw1:%s;pos:%d;", flow, ft_linelen(flow));
 	if (ft_linelen(flow) == -1)
 	{
-//printf("}noNl;");
-
-//printf("\nflw4:%s;pos:%d;len:%ld;", flow, ft_linelen(flow), ft_strlen(flow));
 		flow = ft_get_chars(fd, flow);
-//printf("\nflw5:%s;;", flow);
-		//if (flow == NULL || ft_strlen(flow) == 0)
-		if (flow == NULL)
-		{
-//printf("155-no-flow");
+		if (!flow)
 			return (NULL);
-		}
 	}
 	line = ft_trim_line(flow);
-//printf("\nline: %s;", line);
-//printf("\nflw2:%s;pos:%d;", flow, ft_linelen(flow));
 	flow = ft_push(flow);
-//printf("\nflw3:%s;pos:%d;", flow, ft_linelen(flow));
 	return (line);
 }
