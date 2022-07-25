@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmottus <kmottus@student.42wolfsburg.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 09:50:00 by kmottus           #+#    #+#             */
-/*   Updated: 2022/06/16 09:50:00 by kmottus          ###   ########.fr       */
+/*   Created: 2022/07/25 00:33:00 by kmottus           #+#    #+#             */
+/*   Updated: 2022/07/25 00:33:00 by kmottus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /* Function returns the lenght of the line OR (-1) should there be no '\n'
  */
@@ -111,26 +111,26 @@ char	*ft_push(char *flow)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*flow;
+	static char	*flow[FD_MAX + 1];
 
-	if (BUFFER_SIZE < 1 || fd < 0)
+	if (BUFFER_SIZE < 1 || fd < 0 || fd > FD_MAX)
 		return (NULL);
-	if (!flow)
+	if (!flow[fd])
 	{
-		flow = ft_calloc(1, sizeof(char));
-		if (!flow)
+		flow[fd] = ft_calloc(1, sizeof(char));
+		if (!flow[fd])
 			return (NULL);
-		flow[0] = 0;
+		flow[fd][0] = '\0';
 	}
-	if (ft_linelen(flow) == -1)
+	if (ft_linelen(flow[fd]) == -1)
 	{
-		flow = ft_get_chars(fd, flow);
-		if (flow == NULL)
+		flow[fd] = ft_get_chars(fd, flow[fd]);
+		if (flow[fd] == NULL)
 		{
 			return (NULL);
 		}
 	}
-	line = ft_trim_line(flow);
-	flow = ft_push(flow);
+	line = ft_trim_line(flow[fd]);
+	flow[fd] = ft_push(flow[fd]);
 	return (line);
 }
