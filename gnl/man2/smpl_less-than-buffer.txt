@@ -1,8 +1,0 @@
-Greetings!
-
-This is a text file.
-It is mean't to be used as a s
-ample for testing my 42 GNL pr
-oject. Happy testing!
-
-Kert...
